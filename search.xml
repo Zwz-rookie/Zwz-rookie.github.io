@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>Hexo解决中文乱码问题</title>
+      <link href="2021/031616108.html"/>
+      <url>2021/031616108.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="1、原因"><a href="#1、原因" class="headerlink" title="1、原因"></a>1、原因</h2><p>由于站点配置文件没有使用utf-8编码而导致的中文乱码。</p><h2 id="2、解决方法"><a href="#2、解决方法" class="headerlink" title="2、解决方法"></a>2、解决方法</h2><p>将title改为中文字符，language: zh-CN。<br>将站点配置文件_config.yml保存成utf-8格式。<br>重启博客 <code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code><br>登录本地网站即可查看是否配置成功。</p><h1 id="2、博客内容中文乱码"><a href="#2、博客内容中文乱码" class="headerlink" title="2、博客内容中文乱码"></a>2、博客内容中文乱码</h1><h2 id="1、原因-1"><a href="#1、原因-1" class="headerlink" title="1、原因"></a>1、原因</h2><p>markdown文件没有用utf-8编码保存。</p><h2 id="2、解决方法-1"><a href="#2、解决方法-1" class="headerlink" title="2、解决方法"></a>2、解决方法</h2><p>使用记事本打开博客文件，不需要修改，保存的时候以utf-8的格式保存。<br>注意保存的时候不要修改后缀，默认会改成txt文件，注意保存。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linux启用NFS服务</title>
       <link href="2021/031616107.html"/>
       <url>2021/031616107.html</url>
