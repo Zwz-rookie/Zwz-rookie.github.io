@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="TCP连接和释放机制, 凡人谱">
+    <meta name="keywords" content="Linux启用NFS服务, 凡人谱">
     <meta name="description" content="There is nothing either good or bad, but thinking makes it so.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>TCP连接和释放机制 | 凡人谱</title>
+    <title>Linux启用NFS服务 | 凡人谱</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">TCP连接和释放机制</h1>
+                    <h1 class="description center-align post-title">Linux启用NFS服务</h1>
                 </div>
             </div>
         </div>
@@ -443,7 +443,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-03-08
+                    2021-03-16
                 </div>
                 
 
@@ -452,7 +452,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    622
+                    119
                 </div>
                 
 
@@ -474,14 +474,15 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="连接：三次握手"><a href="#连接：三次握手" class="headerlink" title="连接：三次握手"></a>连接：三次握手</h2><p>三次握手的原因：<br>TCP 是全双工通信，任何一方都可以发起建立连接的请求，假设 A 是客户端，B 是服务器。</p>
-<p>从信息对等的角度看，双方只有确定 4 类信息才能建立连接，即 A 和 B 分别确认自己和对方的发送和接收能力正常。在第二次握手后，从 B 的角度看还不能确定自己的发送能力和对方的接收能力，只有在第三次握手后才能确认。<br>三次握手也是防止失效连接突然到达导致脏连接，网络报文的生存时间往往会超过 TCP 请求超时时间，A 的某个超时连接请求可能会在双方释放连接之后到达 B，B 会误以为是 A 创建了新的连接请求，然后发送确认报文创建连接。因为 A 机器的状态不是 SYN_SENT，所以直接丢弃了 B 的确认数据。如果是两次握手，连接已经建立了，服务器资源被白白浪费。如果是三次握手，B 由于长时间没有收到确认信息，最终超时导致创建连接失败，因此不会出现脏连接。</p>
-<h2 id="释放：四次挥手"><a href="#释放：四次挥手" class="headerlink" title="释放：四次挥手"></a>释放：四次挥手</h2><p>四次挥手的原因：</p>
-<ol>
-<li>为了保证被动关闭方可以进入 CLOSED 状态。MSL 是最大报文段寿命，等待 2MSL 可以保证 A 发送的最后一个确认报文能被 B 接收，如果该报文丢失，B 没有收到就会超时重传之前的FIN+ACK 报文，而如果 A 在发送确认报文后就立即释放连接就无法收到 B 超时重传的报文，因而也不会再一次发送确认报文段，B 就无法正常进入 CLOSED 状态。</li>
-<li>2MSL 时间之后，本连接中的所有报文就都会从网络中消失，可以防止已失效连接的请求数据包与正常连接的请求数据包混淆而发生异常。</li>
-</ol>
-<p>补充：<br>TCP 还设有一个保活计时器，用于解决客户端主机故障的问题，服务器每收到一次客户的数据就重新设置保活计时器，时间为 2 小时。如果 2 小时内没有收到就间隔 75 秒发送一次探测报文，连续 10 次都没有响应后就关闭连接。</p>
+                <h1 id="一、安装NFS服务"><a href="#一、安装NFS服务" class="headerlink" title="一、安装NFS服务"></a>一、安装NFS服务</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt<span class="literal">-get</span> install nfs<span class="literal">-kernel</span><span class="literal">-server</span> rpcbind</span><br></pre></td></tr></table></figure>
+<p>（顺便可以开启SSH服务<strong>sudo apt-get install openssh-server</strong>）</p>
+<h1 id="二、配置NFS文件"><a href="#二、配置NFS文件" class="headerlink" title="二、配置NFS文件"></a>二、配置NFS文件</h1><p>打开配置文件</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/exports</span><br></pre></td></tr></table></figure>
+<p>添加服务器文件夹路径</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/zwz/linux/nfs *(rw,sync,no_root_squash)</span><br></pre></td></tr></table></figure>
+<p>如上，我的路径为/home/zwz/linux/nfs</p>
+<h1 id="三、重启NFS服务"><a href="#三、重启NFS服务" class="headerlink" title="三、重启NFS服务"></a>三、重启NFS服务</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/nfs<span class="literal">-kernel</span><span class="literal">-server</span> restart</span><br></pre></td></tr></table></figure>
+<h1 id="四、实验测试"><a href="#四、实验测试" class="headerlink" title="四、实验测试"></a>四、实验测试</h1><p>1、拷贝文件到nfs文件夹（例如zImage）<br>2、客户端使用对应的NFS命令尝试即可。</p>
 
                 
             </div>
@@ -508,7 +509,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://Zwz-rookie.github.io/2021/030816107.html">http://Zwz-rookie.github.io/2021/030816107.html</a>
+                    <a href="http://Zwz-rookie.github.io/2021/031616110.html">http://Zwz-rookie.github.io/2021/031616110.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -717,13 +718,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/03081.html">
+                <a href="/2021/031616108.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="嵌入式常用功能模块原理简述">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Hexo解决中文乱码问题">
                         
-                        <span class="card-title">嵌入式常用功能模块原理简述</span>
+                        <span class="card-title">Hexo解决中文乱码问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -734,7 +735,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-08
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-16
                         </span>
                         <span class="publish-author">
                             
@@ -754,13 +755,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/022216107.html">
+                <a href="/2021/030816113.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="嵌入式常用功能模块原理简述">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">嵌入式常用功能模块原理简述</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -771,7 +772,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-08
                             </span>
                         <span class="publish-author">
                             

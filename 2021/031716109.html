@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hexo解决中文乱码问题, 凡人谱">
+    <meta name="keywords" content="UBOOT, 凡人谱">
     <meta name="description" content="There is nothing either good or bad, but thinking makes it so.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hexo解决中文乱码问题 | 凡人谱</title>
+    <title>UBOOT | 凡人谱</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hexo解决中文乱码问题</h1>
+                    <h1 class="description center-align post-title">UBOOT</h1>
                 </div>
             </div>
         </div>
@@ -443,7 +443,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-03-16
+                    2021-03-17
                 </div>
                 
 
@@ -452,7 +452,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    170
+                    752
                 </div>
                 
 
@@ -474,10 +474,33 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="1、原因"><a href="#1、原因" class="headerlink" title="1、原因"></a>1、原因</h2><p>由于站点配置文件没有使用utf-8编码而导致的中文乱码。</p>
-<h2 id="2、解决方法"><a href="#2、解决方法" class="headerlink" title="2、解决方法"></a>2、解决方法</h2><p>将title改为中文字符，language: zh-CN。<br>将站点配置文件_config.yml保存成utf-8格式。<br>重启博客 <code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code><br>登录本地网站即可查看是否配置成功。</p>
-<h1 id="2、博客内容中文乱码"><a href="#2、博客内容中文乱码" class="headerlink" title="2、博客内容中文乱码"></a>2、博客内容中文乱码</h1><h2 id="1、原因-1"><a href="#1、原因-1" class="headerlink" title="1、原因"></a>1、原因</h2><p>markdown文件没有用utf-8编码保存。</p>
-<h2 id="2、解决方法-1"><a href="#2、解决方法-1" class="headerlink" title="2、解决方法"></a>2、解决方法</h2><p>使用记事本打开博客文件，不需要修改，保存的时候以utf-8的格式保存。<br>注意保存的时候不要修改后缀，默认会改成txt文件，注意保存。</p>
+                <blockquote>
+<p>本博客是本人自己学习正点原子阿尔法开发板时本着好记性不如烂笔头的心情进行的笔记整理，所以会有不少内容与其教学资料相互重叠。如有侵权行为请立即联系我删除博客，感兴趣者可以百度左盟主开源的教学资料进行具体的学习。</p>
+</blockquote>
+<h2 id="一、何为uboot"><a href="#一、何为uboot" class="headerlink" title="一、何为uboot?"></a>一、何为uboot?</h2><p><strong>Uboot的作用就如同电脑开机时进入BIOS界面一样，起到的是引导系统启动的作用，同时也可以利用Uboot进行系统固件的刷新，升级API。</strong></p>
+<ol>
+<li><p>uboot是一个裸机程序,比较复杂。</p>
+</li>
+<li><p>uboot,就是一个bootloader，作用就是用于启动Linux或其他系统。<br>Uboot最主要的工作就是初始化DDR。因为Linux是运行在DDR里面的。一般Linux镜像zlmage(ulmage)+设备树(.dtb)存放在SD、EMMC、NAND、SPI FLASH等等外置存储区域。<br>这里就牵扯到一个问题，需要将Linux镜像从外置flash拷贝到DDR中，再去启动。<strong>Uboot的主要目的就是为系统的启动做准备。</strong><br>Uboot,不仅仅能启动Linux，也可以启动其他系统,比如vxworkS.。Linux不仅仅能通过uboot启动。<br>uboot,是个通用的bootloader，他支持多种架构。</p>
+</li>
+<li><p>Uboot获取：<br>1、首先就是uboot官网。缺点就是支持少，比如某一款具体芯片驱动等不完善。<br><a target="_blank" rel="noopener" href="http://www.denx.de/wiki/U-Boot/">uboot 官网</a></p>
+</li>
+<li><p>SOC 厂商会从 uboot官网下载某一个版本的uboot，然后在这个版本的uboot上加入相应的SOC 以及驱动。这就是SOC 厂商定制版的uboot。NXP官方的I.MX6ULL EVK板子。<br><a target="_blank" rel="noopener" href="http://git.freescale.com/git/cgit.cgi/imx/uboot-imx.git/tag/?h=imx_v2016.03_4.1.15_2.0.0_ga&id=%20rel_imx_4.1.15_2.1.0_ga">NXP维护的uboot</a><br>3、做开发板的厂商，开发板会参考SOC厂商的板子。开发板必然会和官方的板子不一样。因此开发板厂商又会去修改SOC 厂商做好的uboot，以适应自己的板子。</p>
+</li>
+</ol>
+<h2 id="二、U-Boot初次编译"><a href="#二、U-Boot初次编译" class="headerlink" title="二、U-Boot初次编译"></a>二、U-Boot初次编译</h2><p><strong>整体流程：</strong></p>
+<ol>
+<li>安装 ncurses 库<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt<span class="literal">-get</span> install libncurses5<span class="literal">-dev</span></span><br></pre></td></tr></table></figure></li>
+<li>解压uboot源码<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar <span class="literal">-vxjf</span> uboot<span class="literal">-imx</span><span class="literal">-2016</span>.<span class="number">03</span><span class="literal">-2</span>.<span class="number">1.0</span><span class="literal">-g4475ea1</span><span class="literal">-v1</span>.<span class="number">3</span>.tar.bz2</span><br></pre></td></tr></table></figure></li>
+<li>清除工程<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make ARCH=arm CROSS_COMPILE=arm<span class="literal">-linux</span><span class="literal">-gnueabihf</span>- distclean</span><br></pre></td></tr></table></figure></li>
+<li>配置uboot<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make ARCH=arm CROSS_COMPILE=arm<span class="literal">-linux</span><span class="literal">-gnueabihf</span>- mx6ull_14x14_ddr512_emmc_defconfig</span><br></pre></td></tr></table></figure></li>
+<li>编译uboot内核<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make V=<span class="number">1</span> ARCH=arm CROSS_COMPILE=arm<span class="literal">-linux</span><span class="literal">-gnueabihf</span>- <span class="literal">-j12</span></span><br></pre></td></tr></table></figure>
+V=1打印编译过程;<br>-j12:使用 12 核来编译 uboot;</li>
+</ol>
+<p><strong>过程优化：</strong><br>1、编译UBOOT的时候需要先配置<br>2、编译完成以后就会生成一个u-boot.bin。必须向u-boot.bin添加头部信息。Uboot编译最后会通过/tools/mkimage 软件添加头部信息，生成u-boot.imx。<br>3、如果配置过uboot，那么一定要注意shell脚本会清除整个工程，那么配置的文件也会被删除，配置项也会被删除掉。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">make ARCH=arm CROSS_COMPILE=arm<span class="literal">-linux</span><span class="literal">-gnueabihf</span>- distclean</span><br><span class="line">make ARCH=arm CROSS_COMPILE=arm<span class="literal">-linux</span><span class="literal">-gnueabihf</span>- mx6ull_14x14_ddr256_nand_defconfig</span><br><span class="line">make V=<span class="number">1</span> ARCH=arm CROSS_COMPILE=arm<span class="literal">-linux</span><span class="literal">-gnueabihf</span>- <span class="literal">-j4</span></span><br></pre></td></tr></table></figure>
+<p>4.为了方便开发.建议直接在uboot顶层Makefile里面设置好ARCH 和CORSS_COMPILE这两个变量的值。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># set default to nothing for native builds</span></span><br><span class="line">ifeq (<span class="variable">$</span>(HOSTARCH),<span class="variable">$</span>(ARCH))</span><br><span class="line">CROSS_COMPILE ?=</span><br><span class="line">endif</span><br><span class="line">  </span><br><span class="line">ARCH ?= arm</span><br><span class="line">CROSS_COMPILE ?= arm<span class="literal">-linux</span><span class="literal">-gnueabihf</span>-</span><br></pre></td></tr></table></figure>
 
                 
             </div>
@@ -504,7 +527,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://Zwz-rookie.github.io/2021/031616108.html">http://Zwz-rookie.github.io/2021/031616108.html</a>
+                    <a href="http://Zwz-rookie.github.io/2021/031716109.html">http://Zwz-rookie.github.io/2021/031716109.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -709,9 +732,48 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/031716109.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="UBOOT">
+                        
+                        <span class="card-title">UBOOT</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-17
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Flumpool
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2021/031716111.html">
                     <div class="card-image">
@@ -729,45 +791,8 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-17
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            Flumpool
-                            
-                        </span>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2021/031616110.html">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Linux启用NFS服务">
-                        
-                        <span class="card-title">Linux启用NFS服务</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-17
                             </span>
                         <span class="publish-author">
                             
