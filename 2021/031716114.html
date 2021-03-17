@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="UBOOT, 凡人谱">
+    <meta name="keywords" content="IMX6ULL的Linux系统移植, 凡人谱">
     <meta name="description" content="There is nothing either good or bad, but thinking makes it so.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>UBOOT | 凡人谱</title>
+    <title>IMX6ULL的Linux系统移植 | 凡人谱</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">UBOOT</h1>
+                    <h1 class="description center-align post-title">IMX6ULL的Linux系统移植</h1>
                 </div>
             </div>
         </div>
@@ -452,7 +452,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    752
+                    819
                 </div>
                 
 
@@ -477,30 +477,24 @@
                 <blockquote>
 <p>本博客是本人自己学习正点原子阿尔法开发板时本着好记性不如烂笔头的心情进行的笔记整理，所以会有不少内容与其教学资料相互重叠。如有侵权行为请立即联系我删除博客，感兴趣者可以百度左盟主开源的教学资料进行具体的学习。</p>
 </blockquote>
-<h2 id="一、何为uboot"><a href="#一、何为uboot" class="headerlink" title="一、何为uboot?"></a>一、何为uboot?</h2><p><strong>Uboot的作用就如同电脑开机时进入BIOS界面一样，起到的是引导系统启动的作用，同时也可以利用Uboot进行系统固件的刷新，升级API。</strong></p>
-<ol>
-<li><p>uboot是一个裸机程序,比较复杂。</p>
-</li>
-<li><p>uboot,就是一个bootloader，作用就是用于启动Linux或其他系统。<br>Uboot最主要的工作就是初始化DDR。因为Linux是运行在DDR里面的。一般Linux镜像zlmage(ulmage)+设备树(.dtb)存放在SD、EMMC、NAND、SPI FLASH等等外置存储区域。<br>这里就牵扯到一个问题，需要将Linux镜像从外置flash拷贝到DDR中，再去启动。<strong>Uboot的主要目的就是为系统的启动做准备。</strong><br>Uboot,不仅仅能启动Linux，也可以启动其他系统,比如vxworkS.。Linux不仅仅能通过uboot启动。<br>uboot,是个通用的bootloader，他支持多种架构。</p>
-</li>
-<li><p>Uboot获取：<br>1、首先就是uboot官网。缺点就是支持少，比如某一款具体芯片驱动等不完善。<br><a target="_blank" rel="noopener" href="http://www.denx.de/wiki/U-Boot/">uboot 官网</a></p>
-</li>
-<li><p>SOC 厂商会从 uboot官网下载某一个版本的uboot，然后在这个版本的uboot上加入相应的SOC 以及驱动。这就是SOC 厂商定制版的uboot。NXP官方的I.MX6ULL EVK板子。<br><a target="_blank" rel="noopener" href="http://git.freescale.com/git/cgit.cgi/imx/uboot-imx.git/tag/?h=imx_v2016.03_4.1.15_2.0.0_ga&id=%20rel_imx_4.1.15_2.1.0_ga">NXP维护的uboot</a><br>3、做开发板的厂商，开发板会参考SOC厂商的板子。开发板必然会和官方的板子不一样。因此开发板厂商又会去修改SOC 厂商做好的uboot，以适应自己的板子。</p>
-</li>
-</ol>
-<h2 id="二、U-Boot初次编译"><a href="#二、U-Boot初次编译" class="headerlink" title="二、U-Boot初次编译"></a>二、U-Boot初次编译</h2><p><strong>整体流程：</strong></p>
-<ol>
-<li>安装 ncurses 库<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt<span class="literal">-get</span> install libncurses5<span class="literal">-dev</span></span><br></pre></td></tr></table></figure></li>
-<li>解压uboot源码<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar <span class="literal">-vxjf</span> uboot<span class="literal">-imx</span><span class="literal">-2016</span>.<span class="number">03</span><span class="literal">-2</span>.<span class="number">1.0</span><span class="literal">-g4475ea1</span><span class="literal">-v1</span>.<span class="number">3</span>.tar.bz2</span><br></pre></td></tr></table></figure></li>
-<li>清除工程<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make ARCH=arm CROSS_COMPILE=arm<span class="literal">-linux</span><span class="literal">-gnueabihf</span>- distclean</span><br></pre></td></tr></table></figure></li>
-<li>配置uboot<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make ARCH=arm CROSS_COMPILE=arm<span class="literal">-linux</span><span class="literal">-gnueabihf</span>- mx6ull_14x14_ddr512_emmc_defconfig</span><br></pre></td></tr></table></figure></li>
-<li>编译uboot内核<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make V=<span class="number">1</span> ARCH=arm CROSS_COMPILE=arm<span class="literal">-linux</span><span class="literal">-gnueabihf</span>- <span class="literal">-j12</span></span><br></pre></td></tr></table></figure>
-V=1打印编译过程;<br>-j12:使用 12 核来编译 uboot;</li>
-</ol>
-<p><strong>过程优化：</strong><br>1、编译UBOOT的时候需要先配置<br>2、编译完成以后就会生成一个u-boot.bin。必须向u-boot.bin添加头部信息。Uboot编译最后会通过/tools/mkimage 软件添加头部信息，生成u-boot.imx。<br>3、如果配置过uboot，那么一定要注意shell脚本会清除整个工程，那么配置的文件也会被删除，配置项也会被删除掉。</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">make ARCH=arm CROSS_COMPILE=arm<span class="literal">-linux</span><span class="literal">-gnueabihf</span>- distclean</span><br><span class="line">make ARCH=arm CROSS_COMPILE=arm<span class="literal">-linux</span><span class="literal">-gnueabihf</span>- mx6ull_14x14_ddr256_nand_defconfig</span><br><span class="line">make V=<span class="number">1</span> ARCH=arm CROSS_COMPILE=arm<span class="literal">-linux</span><span class="literal">-gnueabihf</span>- <span class="literal">-j4</span></span><br></pre></td></tr></table></figure>
-<p>4.为了方便开发.建议直接在uboot顶层Makefile里面设置好ARCH 和CORSS_COMPILE这两个变量的值。</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># set default to nothing for native builds</span></span><br><span class="line">ifeq (<span class="variable">$</span>(HOSTARCH),<span class="variable">$</span>(ARCH))</span><br><span class="line">CROSS_COMPILE ?=</span><br><span class="line">endif</span><br><span class="line">  </span><br><span class="line">ARCH ?= arm</span><br><span class="line">CROSS_COMPILE ?= arm<span class="literal">-linux</span><span class="literal">-gnueabihf</span>-</span><br></pre></td></tr></table></figure>
+<h1 id="系统镜像烧写"><a href="#系统镜像烧写" class="headerlink" title="系统镜像烧写"></a>系统镜像烧写</h1><h2 id="1-Windows下使用OTG烧写系统"><a href="#1-Windows下使用OTG烧写系统" class="headerlink" title="1. Windows下使用OTG烧写系统"></a>1. <strong>Windows下使用OTG烧写系统</strong></h2><p>使用NXP提供的mfgtool来向开发板烧写系统。先将开发板的USB_OTG口连接到电脑上。<br>        mfgtool先向板子上的DDR下载一个linux系统，然后用这个linux系统完成后面的烧写工作。<br>        烧写系用一般都是烧写到NAND或者EMMC里面的，也可以像裸机开发教程里那样子，烧写到SD卡里面。<br>        由于我使用的时EMMC8G的核心板，所以使用的.vbs文件选择：Mfgtool2-eMMC-ddr512-eMMC/SDcard。<br>        出现下图即为连接成功，点击Start可以往板子里烧写系统。<br>        <img src="https://img-blog.csdnimg.cn/20210311204007765.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="Mfgtool2-eMMC-ddr512-eMMC"><br>    烧写中……<br>        <img src="https://img-blog.csdnimg.cn/20210312142823857.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>   烧写过程中可以用串口工具接收返回的信息。如下图<br>        <img src="https://img-blog.csdnimg.cn/20210312142843808.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>    烧写完成后点击Stop，再点击Exit即可完成linux系统的烧写。<br>    <img src="https://img-blog.csdnimg.cn/2021031214301377.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>   <strong>注意：使用OTG烧写的时候要先把SD卡从板子上拔出来，等USB_OTG与电脑连接成功后就可以将SD卡插进去了。</strong></p>
+<h2 id="2-Ubuntu下通过脚本烧写系统"><a href="#2-Ubuntu下通过脚本烧写系统" class="headerlink" title="2. Ubuntu下通过脚本烧写系统"></a>2. <strong>Ubuntu下通过脚本烧写系统</strong></h2><h3 id="整体流程："><a href="#整体流程：" class="headerlink" title="整体流程："></a><strong>整体流程：</strong></h3><pre><code>     1.烧写Linux系统到SD卡。
+     2.设置SD启动，进入Linux系统。
+     3.利用串口发送指令，在SD卡的系统下将Linux系统烧写到EMMC或者NAND里。
+     4.设置EMMC或者NAND启动，进入系统。
+     
+</code></pre>
+<h3 id="烧写系统到SD卡："><a href="#烧写系统到SD卡：" class="headerlink" title="烧写系统到SD卡："></a><strong>烧写系统到SD卡：</strong></h3><p> 将路径mfgtool-&gt;Profiles-&gt;Linux-&gt;OS Firmware-&gt;files的files文件夹拷贝到linux系统目录下。<br> 修改files文件夹下imx6mksdboot.sh的权限：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod <span class="number">777</span> imx6mksdboot.sh</span><br></pre></td></tr></table></figure>
+<p> 查看imx6mksdboot.sh的参数说明：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./imx6mksdboot.sh -<span class="literal">-help</span></span><br></pre></td></tr></table></figure>
+<p> 根据参数说明，烧写系统到SD卡中：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./imx6mksdboot.sh <span class="literal">-device</span> /dev/sdb <span class="literal">-flash</span> emmc <span class="literal">-ddrsize</span> <span class="number">512</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="烧写系统到EMMC："><a href="#烧写系统到EMMC：" class="headerlink" title="烧写系统到EMMC："></a><strong>烧写系统到EMMC：</strong></h3><p> 这个步骤个人理解际上与烧写到SD卡上的步骤完全一致。无非就是烧写到SD卡上的时候SD卡挂载在计算机的linux系统中，而进行EMMC烧写的系统时候，EMMC挂载在开发板的lInux中。因此进行EMMC的烧写也就是重复SD卡烧写的过程，所以要求开发板的存储介质中有Mfgtool的files文件夹。故：<br>     1、先将files文件夹拷贝到SD卡的Linux系统文件目录下，我拷贝到了/home/root目录。（由于linux隔一段时间会将缓存中的文件同步到移动设备中，但是时间间隔不确定，建议手动执行sync命令进行同步以确保文件传输完成）<br>     2、修改EMMC固化脚本权限：<strong>chmod +x imx6mkemmcboot.sh</strong><br>     <img src="https://img-blog.csdnimg.cn/20210312235452682.PNG#pic_center" alt="在这里插入图片描述"><br>     3、查看脚本说明：**./imx6mkemmcboot.sh –help**<br>     <img src="https://img-blog.csdnimg.cn/20210312235234372.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>     4、查看emmc挂载节点：<strong>fdisk -l</strong><br>     <img src="https://img-blog.csdnimg.cn/20210312235249297.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>     5、根据脚本说明和挂载节点输入命令进行系统烧写：**./imx6mkemmcboot.sh -device /dev/mmcblk1 -ddrsize 512**<br>     <img src="https://img-blog.csdnimg.cn/2021031223571113.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>    由于此次往EMMC固化系统是由IMX6ULL进行的，所以烧写的速度没有由PC进行迅速，需要较长等待时间</p>
+<h3 id="烧写系统到NAND："><a href="#烧写系统到NAND：" class="headerlink" title="烧写系统到NAND："></a><strong>烧写系统到NAND：</strong></h3><p> 过程参考步骤<strong>烧写系统到EMMC</strong>即可。</p>
 
                 
             </div>
@@ -527,7 +521,7 @@ V=1打印编译过程;<br>-j12:使用 12 核来编译 uboot;</li>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://Zwz-rookie.github.io/2021/031716109.html">http://Zwz-rookie.github.io/2021/031716109.html</a>
+                    <a href="http://Zwz-rookie.github.io/2021/031716114.html">http://Zwz-rookie.github.io/2021/031716114.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -732,9 +726,10 @@ V=1打印编译过程;<br>-j12:使用 12 核来编译 uboot;</li>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/031716114.html">
                     <div class="card-image">
@@ -752,9 +747,9 @@ V=1打印编译过程;<br>-j12:使用 12 核来编译 uboot;</li>
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-17
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-17
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -763,6 +758,7 @@ V=1打印编译过程;<br>-j12:使用 12 核来编译 uboot;</li>
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -773,13 +769,13 @@ V=1打印编译过程;<br>-j12:使用 12 核来编译 uboot;</li>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/031716111.html">
+                <a href="/2021/031716109.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Linux启用TFTP服务">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="UBOOT">
                         
-                        <span class="card-title">Linux启用TFTP服务</span>
+                        <span class="card-title">UBOOT</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
