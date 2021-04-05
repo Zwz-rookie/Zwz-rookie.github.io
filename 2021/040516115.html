@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="IMX6ULL的Linux系统移植, 凡人谱">
+    <meta name="keywords" content="Linux设备树, 凡人谱">
     <meta name="description" content="There is nothing either good or bad, but thinking makes it so.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>IMX6ULL的Linux系统移植 | 凡人谱</title>
+    <title>Linux设备树 | 凡人谱</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">IMX6ULL的Linux系统移植</h1>
+                    <h1 class="description center-align post-title">Linux设备树</h1>
                 </div>
             </div>
         </div>
@@ -443,7 +443,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-03-17
+                    2021-04-05
                 </div>
                 
 
@@ -452,7 +452,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    819
+                    18
                 </div>
                 
 
@@ -474,27 +474,24 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <blockquote>
-<p>本博客是本人自己学习正点原子阿尔法开发板时本着好记性不如烂笔头的心情进行的笔记整理，所以会有不少内容与其教学资料相互重叠。如有侵权行为请立即联系我删除博客，感兴趣者可以百度左盟主开源的教学资料进行具体的学习。</p>
-</blockquote>
-<h1 id="系统镜像烧写"><a href="#系统镜像烧写" class="headerlink" title="系统镜像烧写"></a>系统镜像烧写</h1><h2 id="1-Windows下使用OTG烧写系统"><a href="#1-Windows下使用OTG烧写系统" class="headerlink" title="1. Windows下使用OTG烧写系统"></a>1. <strong>Windows下使用OTG烧写系统</strong></h2><p>使用NXP提供的mfgtool来向开发板烧写系统。先将开发板的USB_OTG口连接到电脑上。<br>        mfgtool先向板子上的DDR下载一个linux系统，然后用这个linux系统完成后面的烧写工作。<br>        烧写系用一般都是烧写到NAND或者EMMC里面的，也可以像裸机开发教程里那样子，烧写到SD卡里面。<br>        由于我使用的时EMMC8G的核心板，所以使用的.vbs文件选择：Mfgtool2-eMMC-ddr512-eMMC/SDcard。<br>        出现下图即为连接成功，点击Start可以往板子里烧写系统。<br>        <img src="https://img-blog.csdnimg.cn/20210311204007765.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="Mfgtool2-eMMC-ddr512-eMMC"><br>    烧写中……<br>        <img src="https://img-blog.csdnimg.cn/20210312142823857.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>   烧写过程中可以用串口工具接收返回的信息。如下图<br>        <img src="https://img-blog.csdnimg.cn/20210312142843808.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>    烧写完成后点击Stop，再点击Exit即可完成linux系统的烧写。<br>    <img src="https://img-blog.csdnimg.cn/2021031214301377.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>   <strong>注意：使用OTG烧写的时候要先把SD卡从板子上拔出来，等USB_OTG与电脑连接成功后就可以将SD卡插进去了。</strong></p>
-<h2 id="2-Ubuntu下通过脚本烧写系统"><a href="#2-Ubuntu下通过脚本烧写系统" class="headerlink" title="2. Ubuntu下通过脚本烧写系统"></a>2. <strong>Ubuntu下通过脚本烧写系统</strong></h2><h3 id="整体流程："><a href="#整体流程：" class="headerlink" title="整体流程："></a><strong>整体流程：</strong></h3><pre><code>     1.烧写Linux系统到SD卡。
-     2.设置SD启动，进入Linux系统。
-     3.利用串口发送指令，在SD卡的系统下将Linux系统烧写到EMMC或者NAND里。
-     4.设置EMMC或者NAND启动，进入系统。
-     
-</code></pre>
-<h3 id="烧写系统到SD卡："><a href="#烧写系统到SD卡：" class="headerlink" title="烧写系统到SD卡："></a><strong>烧写系统到SD卡：</strong></h3><p> 将路径mfgtool-&gt;Profiles-&gt;Linux-&gt;OS Firmware-&gt;files的files文件夹拷贝到linux系统目录下。<br> 修改files文件夹下imx6mksdboot.sh的权限：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod <span class="number">777</span> imx6mksdboot.sh</span><br></pre></td></tr></table></figure>
-<p> 查看imx6mksdboot.sh的参数说明：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./imx6mksdboot.sh -<span class="literal">-help</span></span><br></pre></td></tr></table></figure>
-<p> 根据参数说明，烧写系统到SD卡中：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./imx6mksdboot.sh <span class="literal">-device</span> /dev/sdb <span class="literal">-flash</span> emmc <span class="literal">-ddrsize</span> <span class="number">512</span></span><br></pre></td></tr></table></figure>
+                <p><font color=#999AAA >学习正点原子IMX6ULL嵌入式Linux驱动开发的笔记</p>
+</font>
 
-<h3 id="烧写系统到EMMC："><a href="#烧写系统到EMMC：" class="headerlink" title="烧写系统到EMMC："></a><strong>烧写系统到EMMC：</strong></h3><p> 这个步骤个人理解际上与烧写到SD卡上的步骤完全一致。无非就是烧写到SD卡上的时候SD卡挂载在计算机的linux系统中，而进行EMMC烧写的系统时候，EMMC挂载在开发板的lInux中。因此进行EMMC的烧写也就是重复SD卡烧写的过程，所以要求开发板的存储介质中有Mfgtool的files文件夹。故：<br>     1、先将files文件夹拷贝到SD卡的Linux系统文件目录下，我拷贝到了/home/root目录。（由于linux隔一段时间会将缓存中的文件同步到移动设备中，但是时间间隔不确定，建议手动执行sync命令进行同步以确保文件传输完成）<br>     2、修改EMMC固化脚本权限：<strong>chmod +x imx6mkemmcboot.sh</strong><br>     <img src="https://img-blog.csdnimg.cn/20210312235452682.PNG#pic_center" alt="在这里插入图片描述"><br>     3、查看脚本说明：**./imx6mkemmcboot.sh –help**<br>     <img src="https://img-blog.csdnimg.cn/20210312235234372.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>     4、查看emmc挂载节点：<strong>fdisk -l</strong><br>     <img src="https://img-blog.csdnimg.cn/20210312235249297.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>     5、根据脚本说明和挂载节点输入命令进行系统烧写：**./imx6mkemmcboot.sh -device /dev/mmcblk1 -ddrsize 512**<br>     <img src="https://img-blog.csdnimg.cn/2021031223571113.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>    由于此次往EMMC固化系统是由IMX6ULL进行的，所以烧写的速度没有由PC进行迅速，需要较长等待时间</p>
-<h3 id="烧写系统到NAND："><a href="#烧写系统到NAND：" class="headerlink" title="烧写系统到NAND："></a><strong>烧写系统到NAND：</strong></h3><p> 过程参考步骤<strong>烧写系统到EMMC</strong>即可。</p>
+<p>@<a href="%E6%96%87%E7%AB%A0%E7%9B%AE%E5%BD%95">TOC</a></p>
+<hr style=" border:solid; width:100px; height:1px;" color=#000000 size=1">
+
+
+
+<h1 id="一、设备树是什么"><a href="#一、设备树是什么" class="headerlink" title="一、设备树是什么"></a>一、设备树是什么</h1><p><font color=#999AAA >设备树(Device Tree)，将这个词分开就是“设备”和“树”，描述设备树的文件叫做 DTS(Device Tree Source)，这个 DTS 文件采用树形结构描述板级设备，也就是开发板上的设备信息，比如CPU 数量、 内存基地址、IIC 接口上接了哪些设备、SPI 接口上接了哪些设备等等<br><img src="https://img-blog.csdnimg.cn/20210328110223350.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="设备树结构示意图"></p>
+<h1 id="二、DTS、DTB-和-DTC"><a href="#二、DTS、DTB-和-DTC" class="headerlink" title="二、DTS、DTB 和 DTC"></a>二、DTS、DTB 和 DTC</h1><p>设备树源文件扩展名为.dts，DTS 是设备树源码文件；DTB 是将DTS 编译以后得到的二进制文件；DTC工具将.dts 编译为.dtb。<br><img src="https://img-blog.csdnimg.cn/20210328154535915.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="DTC、DTB、DTS关系"><br>dtc编译器可以把dts文件编译成为dtb，也可把dtb编译成为dts文件（本文只描述DTS到DTB的过程），编译命令格式如下：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dtc [-<span class="type">I</span> <span class="type">input</span>-<span class="type">format</span>] [-<span class="type">O</span> <span class="type">output</span>-<span class="type">format</span>][-<span class="type">o</span> <span class="type">output</span>-<span class="type">filename</span>] [-<span class="type">V</span> <span class="type">output_version</span>] input_filename</span><br></pre></td></tr></table></figure>
+
+<p>DTC 工具依赖于 dtc.c、flattree.c、fstree.c 等文件，最终编译并链接出 DTB 这个主机文件。如果要编译 DTS 文件的话只需要进入到 Linux 源码根目录下，然后执行如下命令：<br>make all<br>或者：<br>make dtbs</p>
+<h1 id="三、设备树在系统中的体现"><a href="#三、设备树在系统中的体现" class="headerlink" title="三、设备树在系统中的体现"></a>三、设备树在系统中的体现</h1><p>Linux 内核启动的时候会解析设备树中各个节点的信息，并且在根文件系统的/proc/device-tree 目录下根据节点名字创建不同文件夹，如下图所示<br><img src="https://img-blog.csdnimg.cn/20210329094759272.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="设备树中各个节点的信息"><br>根节点属性属性表现为一个个的文件(图中细字体文件)，比如图中的“#address-cells”、“#size-cells”、“compatible”、“model”和“name”这 5 个文件；<br>各个文件夹(途中粗字体文件夹)就是根节点“/”的各个子节点，比如“aliases”、“backlight”、“chosen”和“clocks”等等。<br><font color=#999AAA >/proc/device-tree 目录就是设备树在根文件系统中的体现，同样是按照树形结构组织的，进入/proc/device-tree/soc 目录中就可以看到 soc 节点的所有子节点</p>
+<h1 id="四、设备树节点解析流程"><a href="#四、设备树节点解析流程" class="headerlink" title="四、设备树节点解析流程"></a>四、设备树节点解析流程</h1><p>Linux内核解析DTB节点时，在 start_kernel 函数中完成了设备树节点解析的工作，最终实际工作的函数为 unflatten_dt_node。具体解析流程如下图：<br><img src="https://img-blog.csdnimg.cn/20210329100113784.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="设备树节点解析流程图"></p>
+<h1 id="五、绑定信息文档"><a href="#五、绑定信息文档" class="headerlink" title="五、绑定信息文档"></a>五、绑定信息文档</h1><p>在Linux 内核源码中有详细的.txt 文档描述了如何添加节点，这些.txt 文档叫做绑定文档，路径为：Linux 源码目录/Documentation/devicetree/bindings<br><img src="https://img-blog.csdnimg.cn/20210329101542439.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NyYXp5X0RpYW1vbmRf,size_16,color_FFFFFF,t_70#pic_center" alt="设备树绑定文档"><br>比如我们现在要想在 I.MX6ULL 这颗 SOC 的 I2C 下添加一个节点，那么就可以查看Documentation/devicetree/bindings/i2c/i2c-imx.txt，此文档详细的描述了 I.MX 系列的 SOC 如何在设备树中添加 I2C 设备节点。</p>
+<hr style=" border:solid; width:100px; height:1px;" color=#000000 size=1">
+
 
                 
             </div>
@@ -521,7 +518,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://Zwz-rookie.github.io/2021/031716114.html">http://Zwz-rookie.github.io/2021/031716114.html</a>
+                    <a href="http://Zwz-rookie.github.io/2021/040516115.html">http://Zwz-rookie.github.io/2021/040516115.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -726,9 +723,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/040516115.html">
                     <div class="card-image">
@@ -746,9 +744,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-05
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-05
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -757,6 +755,7 @@
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -767,13 +766,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/031716109.html">
+                <a href="/2021/031716114.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="UBOOT">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="IMX6ULL的Linux系统移植">
                         
-                        <span class="card-title">UBOOT</span>
+                        <span class="card-title">IMX6ULL的Linux系统移植</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
